@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-4">
+                <i data-feather="activity" class="me-3"></i>
+                Market Analysis Dashboard
+            </h1>
+            <p class="lead text-muted">Real-time cryptocurrency and forex data with sentiment analysis</p>
+        </div>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i data-feather="database" class="mb-2" style="width: 32px; height: 32px;"></i>
+                    <h5 class="card-title">Data Status</h5>
+                    <p class="card-text" id="dataStatus">Loading...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i data-feather="clock" class="mb-2" style="width: 32px; height: 32px;"></i>
+                    <h5 class="card-title">Last Update</h5>
+                    <p class="card-text" id="lastUpdate">Loading...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i data-feather="trending-up" class="mb-2" style="width: 32px; height: 32px;"></i>
+                    <h5 class="card-title">Crypto Pairs</h5>
+                    <p class="card-text" id="cryptoCount">Loading...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i data-feather="globe" class="mb-2" style="width: 32px; height: 32px;"></i>
+                    <h5 class="card-title">Forex Pairs</h5>
+                    <p class="card-text" id="forexCount">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4" id="mainTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="crypto-tab" data-bs-toggle="tab" data-bs-target="#crypto" type="button">
+                <i data-feather="dollar-sign" class="me-1"></i>Cryptocurrency
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="forex-tab" data-bs-toggle="tab" data-bs-target="#forex" type="button">
+                <i data-feather="globe" class="me-1"></i>Forex
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="sentiment-tab" data-bs-toggle="tab" data-bs-target="#sentiment" type="button">
+                <i data-feather="heart" class="me-1"></i>Sentiment Analysis
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button">
+                <i data-feather="activity" class="me-1"></i>System Logs
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="mainTabContent">
+        <!-- Cryptocurrency Tab -->
+        <div class="tab-pane fade show active" id="crypto" role="tabpanel">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i data-feather="dollar-sign" class="me-2"></i>
+                        Cryptocurrency Market Data
+                    </h5>
+                    <a href="{{ url_for('rss_crypto') }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                        <i data-feather="rss" class="me-1"></i>RSS Feed
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div id="cryptoContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading cryptocurrency data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forex Tab -->
+        <div class="tab-pane fade" id="forex" role="tabpanel">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i data-feather="globe" class="me-2"></i>
+                        Forex Exchange Rates
+                    </h5>
+                    <a href="{{ url_for('rss_forex') }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                        <i data-feather="rss" class="me-1"></i>RSS Feed
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div id="forexContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading forex data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sentiment Analysis Tab -->
+        <div class="tab-pane fade" id="sentiment" role="tabpanel">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i data-feather="heart" class="me-2"></i>
+                        Market Sentiment Analysis
+                    </h5>
+                    <a href="{{ url_for('rss_sentiment') }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                        <i data-feather="rss" class="me-1"></i>RSS Feed
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div id="sentimentContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading sentiment analysis...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Logs Tab -->
+        <div class="tab-pane fade" id="logs" role="tabpanel">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i data-feather="activity" class="me-2"></i>
+                        System Activity Logs
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="logsContent">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading system logs...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Initialize the dashboard when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load initial data
+        loadDashboardData();
+        
+        // Set up auto-refresh every 5 minutes
+        setInterval(loadDashboardData, 300000);
+        
+        // Set active tab if specified in URL or passed from backend
+        const activeTab = '{{ active_tab if active_tab else "crypto" }}';
+        if (activeTab && activeTab !== 'crypto') {
+            const tabButton = document.getElementById(activeTab + '-tab');
+            if (tabButton) {
+                tabButton.click();
+            }
+        }
+    });
+</script>
+{% endblock %}
