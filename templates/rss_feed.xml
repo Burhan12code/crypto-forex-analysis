@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>{{ feed_title }}</title>
+        <link>{{ feed_link }}</link>
+        <description>{{ feed_description }}</description>
+        <language>en-us</language>
+        <lastBuildDate>{{ last_build_date }}</lastBuildDate>
+        <atom:link href="{{ feed_url }}" rel="self" type="application/rss+xml" />
+        <generator>Crypto &amp; Forex Analysis System</generator>
+        <webMaster>admin@example.com (System Administrator)</webMaster>
+        <managingEditor>admin@example.com (System Administrator)</managingEditor>
+        <docs>https://www.rssboard.org/rss-specification</docs>
+        <ttl>30</ttl>
+        
+        {% for item in feed_items %}
+        <item>
+            <title>{{ item.title | escape }}</title>
+            <link>{{ item.link }}</link>
+            <description><![CDATA[{{ item.description }}]]></description>
+            <pubDate>{{ item.pub_date }}</pubDate>
+            <guid isPermaLink="false">{{ item.guid }}</guid>
+            {% if item.category %}
+            <category>{{ item.category }}</category>
+            {% endif %}
+            {% if item.author %}
+            <author>{{ item.author }}</author>
+            {% endif %}
+        </item>
+        {% endfor %}
+    </channel>
+</rss>
